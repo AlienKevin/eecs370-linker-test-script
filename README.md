@@ -37,21 +37,21 @@ chmod +x test.sh
 ```
 ./test.sh
 ```
-3. See a success message
-```
-Succeed! Passed all 7 tests!
-```
-or a series of diff outputs for each failed test case
-```
-@ tests/count5.mc:3 @
-8454153
-8650763
-23527404
-23527424
-16842753
+3. If all tests pass, you will see a success message. The script packages all test files and `linker.c` to the `submit/` folder. Those are all the files you need for the Autograder.
+	```
+	Succeed! Passed all 7 tests!
+	```
+	If one or more of the tests failed, you will see a series of diff outputs for each failed test case:
+	```
+	@ tests/count5.mc:3 @
+	8454153
+	8650763
+	23527404
+	23527424
+	16842753
 
-1/7 tests failed.
-```
+	1/7 tests failed.
+	```
 
 ## Supported Platforms
 * Tested on macOS Monterey

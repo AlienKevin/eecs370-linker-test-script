@@ -26,8 +26,13 @@ main () {
 	rm $tmp_err_file
 	if [ "$failed" -eq "0" ]; then
 		echo "Succeed! Passed all ${passed} tests!"
+		mkdir -p "submit"
+		find "tests" -name "*.as" -exec cp {} "submit" \;
+		cp "linker.c" "submit"
+		echo "Packaged all files required by the AG to submit/"
 	else
 		total=$(( passed + failed ))
+		rm submit/*
 		echo "${failed}/${total} tests failed."
 	fi
 }
