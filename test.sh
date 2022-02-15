@@ -39,21 +39,34 @@ main () {
 
 run_test () {
 	./linker $obj_files $tmp_mc_file > $tmp_err_file
-	if equal_expected "err"; then
+	linker_exit_1=$?
+	if [ $linker_exit_1 -eq 1 ]; then
+		if equal_expected "err"; then
+			passed=$(( passed + 1 ))
+		else
+			print_test_name
+			failed=$(( failed + 1 ))
+			print_diff "err"
+
+			if ! equal_expected "mc"; then
+				print_diff "mc"
+			fi
+		fi
+	else
 		if equal_expected "mc"; then
 			passed=$(( passed + 1 ))
 		else
+			print_test_name
 			failed=$(( failed + 1 ))
-			print_diff "mc"
-		fi
-	else
-		failed=$(( failed + 1 ))
-		print_diff "err"
-
-		if ! equal_expected "mc"; then
+			cat $tmp_err_file
 			print_diff "mc"
 		fi
 	fi
+}
+
+print_test_name () {
+	local test_name=${name#*/} # remove "tests/" in front of variable name
+	echo "------| $test_name |------"
 }
 
 equal_expected () {
