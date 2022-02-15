@@ -32,7 +32,7 @@ main () {
 		echo "Packaged all files required by the AG to submit/"
 	else
 		total=$(( passed + failed ))
-		rm submit/*
+		rm submit/* 2> /dev/null
 		echo "${failed}/${total} tests failed."
 	fi
 }
